@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ModularizedCoding</title>
+	<script type="text/javascript" src="scripts/originJs.js"></script>
+</head>
+<body>
+	<div class="test"></div>
+	<script type="text/javascript">
+		console.log('** origin javascript **');
+		function m1() {}
+		function m2() {}
+
+		console.log('** object method **');
+		var moduleTest = {
+			count: 0,
+			m1: function() {
+
+			},
+			m2: function() {
+
+			}
+		};
+
+		moduleTest.count = 5;
+		console.log(moduleTest.count);
+
+		console.log(' ** Immediately-Invoked Function Expression ** ');
+		var moduleTest1 = (function() {
+			var count = 0;
+			var m1 = function() {};
+			var m2 = function() {};
+			return {
+				m1: m1,
+				m2: m2
+			};
+		})();
+		console.log(moduleTest1.count);
+
+
+		console.log('** augmentation method --- 放大模式 **');
+		var moduleTest1 = (function(mod) {
+			mod.count1 = 1;
+			mod.m3 = function() {};
+			return mod;
+		})(moduleTest1);
+		console.log(moduleTest1.count1);
+		// 
+		
+		console.log('** Loose augmentation - 宽放大模式 **');
+		var moduleTest1 = (function(mod) {
+			mod.count1 = 1;
+			mod.m3 = function() {};
+			return mod;
+		})(moduleTest1 || {});
+		console.log(moduleTest1.count1);
+
+
+		console.log('** 引入全局变量 **');
+		var moduleTest1 = (function(win, doc, $) {
+			moduleTest1.m4 = function() {};
+		})(window, document, jQuery);
+	</script>
+</body>
+</html>
